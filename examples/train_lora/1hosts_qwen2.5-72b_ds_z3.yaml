@@ -1,0 +1,54 @@
+### model
+model_name_or_path: /data/models/Qwen2.5-72B-Instruct
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_target: all
+#lora_rank: 8
+
+### ddp
+ddp_timeout: 180000000
+deepspeed: /data/project/jianyonghua/project/LLaMA-Factory/examples/deepspeed/ds_z3_config.json
+
+### dataset
+dataset: identity,qwen_data
+#dataset: identity,alpaca_zh_demo,alpaca_en_demo,qwen_data
+dataset_dir: /data/project/jianyonghua/project/LLaMA-Factory/data
+packing: false
+template: qwen
+cutoff_len: 8192
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: /data/project/jianyonghua/project/LLaMA-Factory/saves/qwen2.5-72b-instruction/1hosts_ds3
+logging_steps: 1
+save_strategy: steps
+save_steps: 50
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+#auto_find_batch_size: true
+#group_by_length: true
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 4
+learning_rate: 1.0e-5
+num_train_epochs: 4.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+
+### eval
+val_size: 0.1
+per_device_eval_batch_size: 1
+eval_strategy: steps
+metric_for_best_model: loss
+greater_is_better: false
+eval_steps: 50
+load_best_model_at_end: true
+save_total_limit: 1
+
+

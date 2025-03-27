@@ -1,4 +1,7 @@
 {
+  "qwen_data": {
+    "file_name": "qwen_QA.json"
+  },
   "identity": {
     "file_name": "identity.json"
   },
